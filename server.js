@@ -6,6 +6,7 @@
 var http = require("http");
 var url = require("url");
 var fs = require("fs");
+var crypto = require("crypto");
 
 var port = 8888; //choix arbitraire
 var lastPageArray = []; //tableau qui contiendra le code HTML body de la dernière version de chacun des sites Web surveillés
@@ -45,7 +46,7 @@ function initWebsites(websitesArray, i) {
 			tempInit += chunk.toString();
 		});
 		res.on("end", function () {
-			lastPageArray[i] = tempInit;
+			lastPageArray[i] = crypto.createHash('md5').update(tempInit).digest('hex'); //on prend uniquement un hash de la page  (md5 est suffisant pour une telle application)
 		}); 
 	}).on('error', function(error) {
 		console.log("Attention, erreur : " + error.message);
@@ -62,6 +63,7 @@ function modification(websitesArray, i, io) {
 			temp += chunk.toString();
 		}); 
 		res.on("end", function () { //quand toutes les données ont été envoyées, on compare avec le contenu de lagePageArray pour en déduire s'il y a eu une modification, et si oui on la traite 
+			temp = crypto.createHash('md5').update(temp).digest('hex'); 
 			if (temp != lastPageArray[i]) {
 				lastPageArray[i] = temp; //on met à jour lastPageArray[i]
 				io.sockets.emit('message', 'la page ' + websitesArray[i] +' a été modifiée.'); //transmet le message au client

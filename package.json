@@ -1,0 +1,24 @@
+{
+  "name": "websiteUpdateChecker",
+  "version": "0.1.1",
+  "description": "Indique la mise à jour de certains sites Web.",
+  "main": "app.js",
+  "dependencies": {
+    "socket.io": "^1.4.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paulhenrigarnier/websiteUpdateChecker.git"
+  },
+  "author": "Paul-Henri Garnier",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paulhenrigarnier/websiteUpdateChecker/issues"
+  },
+  "homepage": "https://github.com/paulhenrigarnier/websiteUpdateChecker"
+}
